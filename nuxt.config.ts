@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    authKey: process.env.NUXT_AUTH_KEY,
     public: {
       impayBaseUrl: process.env.NUXT_API_IMPAY_BASE_URL,
     },

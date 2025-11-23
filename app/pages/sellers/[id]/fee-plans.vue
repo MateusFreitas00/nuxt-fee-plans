@@ -171,6 +171,10 @@
 import type { SalesPlanData } from '~/types/fee-plans'
 import { useSellerSalesPlanRequest } from '~/composables/useSellerSalesPlanRequest'
 
+definePageMeta({
+  middleware: 'auth',
+})
+
 const route = useRoute()
 const { get: getSalesPlan } = useSellerSalesPlanRequest()
 
