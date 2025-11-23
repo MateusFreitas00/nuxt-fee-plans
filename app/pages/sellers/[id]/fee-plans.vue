@@ -38,10 +38,10 @@
           <h2 class="text-lg font-semibold text-gray-900 mb-6">
             Crédito Online <span class="text-gray-600 font-normal">| Recebimento em <span class="font-semibold">{{ creditReceiptDays }}</span></span>
           </h2>
-          <div class="table-scroll-container">
+          <div class="table-scroll-container overflow-x-auto">
             <div class="table-wrapper">
               <table class="w-full">
-              <thead>
+              <thead class="sticky top-0 z-10 bg-white">
                 <tr>
                   <th class="px-4 py-3 text-center text-sm font-semibold text-gray-900 border-b border-gray-300"></th>
                   <th v-for="brand in onlineBrands" :key="brand" class="px-4 py-3 text-center border-b border-gray-300">
@@ -57,7 +57,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(_, index) in maxCreditInstallments" :key="index" :class="{ 'bg-gray-100': index % 2 === 1 }">
+                <tr v-for="(_, index) in maxCreditInstallments" :key="index" :class="{ 'bg-gray-100': index % 2 === 0 }">
                   <td class="px-4 py-4 text-sm font-semibold text-gray-900 border-b border-gray-200">
                     {{ index === 0 ? 'À vista' : `${index + 1}x` }}
                   </td>
@@ -79,10 +79,10 @@
           <h2 class="text-lg font-semibold text-gray-900 mb-6">
             Crédito Físico <span class="text-gray-600 font-normal">| Recebimento em <span class="font-semibold">{{ creditReceiptDays }}</span></span>
           </h2>
-          <div class="table-scroll-container">
+          <div class="table-scroll-container overflow-x-auto">
             <div class="table-wrapper">
               <table class="w-full">
-              <thead>
+              <thead class="sticky top-0 z-10 bg-white">
                 <tr>
                   <th class="px-4 py-3 text-center text-sm font-semibold text-gray-900 border-b border-gray-300"></th>
                   <th v-for="brand in chipBrands" :key="brand" class="px-4 py-3 text-center border-b border-gray-300">
@@ -98,7 +98,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(_, index) in maxCreditInstallments" :key="index" :class="{ 'bg-gray-100': index % 2 === 1 }">
+                <tr v-for="(_, index) in maxCreditInstallments" :key="index" :class="{ 'bg-gray-100': index % 2 === 0 }">
                   <td class="px-4 py-4 text-sm font-semibold text-gray-900 border-b border-gray-200">
                     {{ index === 0 ? 'À vista' : `${index + 1}x` }}
                   </td>
@@ -120,10 +120,10 @@
           <h2 class="text-lg font-semibold text-gray-900 mb-6">
             Débito <span class="text-gray-600 font-normal">| Recebimento em <span class="font-semibold">1 dia</span></span>
           </h2>
-          <div class="table-scroll-container">
+          <div class="table-scroll-container overflow-x-auto">
             <div class="table-wrapper">
               <table class="w-full">
-              <thead>
+              <thead class="sticky top-0 z-10 bg-white">
                 <tr>
                   <th class="px-4 py-3 text-center text-sm font-semibold text-gray-900 border-b border-gray-300"></th>
                   <th v-for="brand in debitBrands" :key="brand" class="px-4 py-3 text-center border-b border-gray-300">
