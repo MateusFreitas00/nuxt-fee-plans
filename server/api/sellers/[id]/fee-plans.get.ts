@@ -1,6 +1,6 @@
-import type { SellerSalesPlanResponse } from '~/types/im-pay.type'
+import type { SellerSalesPlanResponse } from '~/types/fee-plans'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event): Promise<SellerSalesPlanResponse> => {
   const sellerId = getRouterParam(event, 'id')
   const config = useRuntimeConfig()
 
@@ -8,6 +8,13 @@ export default defineEventHandler(async (event) => {
     throw createError({
       statusCode: 400,
       statusMessage: 'Seller ID is required',
+    })
+  }
+
+  if (!config.public.impayBaseUrl) {
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'API base URL is not configured',
     })
   }
 
@@ -26,11 +33,15 @@ export default defineEventHandler(async (event) => {
   } catch (error: any) {
     const statusCode = error.response?.status || 500
     const statusMessage = error.response?.statusText || 'Failed to fetch sales plan'
+    const errorData = error.response?.data || error.message
 
     throw createError({
       statusCode,
       statusMessage,
-      data: error.response?.data || error.message,
+      data: {
+        message: statusMessage,
+        error: errorData,
+      },
     })
   }
 })
