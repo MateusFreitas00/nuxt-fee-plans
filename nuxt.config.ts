@@ -17,6 +17,17 @@ export default defineNuxtConfig({
     colorMode: false,
   },
 
+  app: {
+    head: {
+      meta: [
+        {
+          name: 'robots',
+          content: 'noindex, nofollow',
+        },
+      ],
+    },
+  },
+
   runtimeConfig: {
     public: {
       impayBaseUrl: process.env.NUXT_API_IMPAY_BASE_URL,
