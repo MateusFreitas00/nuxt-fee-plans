@@ -11,8 +11,8 @@
       <div v-else-if="error" class="bg-red-50 border border-red-200 rounded-lg p-8 text-center">
         <p class="text-red-800 font-medium mb-4 text-lg">Opss. Não conseguimos carregar o plano de taxas</p>
         <button
-          @click="fetchSalesPlan"
           class="inline-block bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition"
+          @click="fetchSalesPlan"
         >
           Tentar Novamente
         </button>
@@ -23,7 +23,7 @@
           <h2 class="text-lg font-semibold text-gray-900 mb-2 text-center">
             Pix <span class="text-gray-600 font-normal">| Recebimento em <span class="font-semibold">1 dia</span></span>
           </h2>
-          <p class="text-lg font-semibold text-gray-900 text-center"><span class="font-normal">Taxa:</span> {{ formatPercent(salesPlan.pix.percent_amount) }}</p>
+          <p class="text-lg font-semibold text-gray-900 text-center"><span class="font-normal">{{ getPixLabel() }}:</span> {{ getPixFeeDisplay() }}</p>
         </div>
 
         <div class="border-b border-gray-200 pb-5">
@@ -235,6 +235,29 @@ const getDebitFee = (brand: string): string => {
   return formatPercent(salesPlan.value.debit[brand].percent_amount)
 }
 
+const getPixFeeDisplay = (): string => {
+  if (!salesPlan.value?.pix) return '-'
+  const percentAmount = salesPlan.value.pix.percent_amount
+  const dollarAmount = salesPlan.value.pix.dollar_amount
+
+  if (percentAmount === 0 && dollarAmount) {
+    return formatCurrency(dollarAmount)
+  }
+
+  return formatPercent(percentAmount)
+}
+
+const getPixLabel = (): string => {
+  if (!salesPlan.value?.pix) return 'Taxa'
+  const percentAmount = salesPlan.value.pix.percent_amount
+
+  if (percentAmount === 0) {
+    return 'Tarifa'
+  }
+
+  return 'Taxa'
+}
+
 const sortBrands = (brands: string[], preferredBrands: string[]): string[] => {
   const preferred = brands.filter(b => preferredBrands.includes(b))
   const others = brands.filter(b => !preferredBrands.includes(b))
@@ -268,8 +291,9 @@ const fetchSalesPlan = async () => {
   try {
     const data = await getSalesPlan(sellerId.value)
     salesPlan.value = data
-  } catch (err: any) {
-    error.value = err.message || 'Erro ao carregar o plano de vendas'
+  } catch (err) {
+    const catchError = err as Error & { response?: { status: number; statusText: string } }
+    error.value = catchError.message || 'Erro ao carregar o plano de vendas'
     console.error('Error fetching sales plan:', err)
   } finally {
     isLoading.value = false
