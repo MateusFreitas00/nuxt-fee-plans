@@ -30,10 +30,11 @@ export default defineEventHandler(async (event): Promise<SellerSalesPlanResponse
     )
 
     return response
-  } catch (error: any) {
-    const statusCode = error.response?.status || 500
-    const statusMessage = error.response?.statusText || 'Failed to fetch sales plan'
-    const errorData = error.response?.data || error.message
+  } catch (error) {
+    const fetchError = error as { response?: { status: number; statusText: string; data: unknown }; message: string }
+    const statusCode = fetchError.response?.status || 500
+    const statusMessage = fetchError.response?.statusText || 'Failed to fetch sales plan'
+    const errorData = fetchError.response?.data || fetchError.message
 
     throw createError({
       statusCode,
