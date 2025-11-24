@@ -10,7 +10,7 @@ const publicRoutes = ['/', '/error']
   const expectedKey = process.env.NUXT_AUTH_KEY
 
   if (!expectedKey) {
-    console.warn('NUXT_AUTH_KEY is not configured')
+    console.warn('Auth is not configured')
     return
   }
 
