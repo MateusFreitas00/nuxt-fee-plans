@@ -1,6 +1,6 @@
 export default defineEventHandler((event) => {
 const url = event.node.req.url || ''
-const publicRoutes = ['/error']
+const publicRoutes = ['/', '/error']
   if (publicRoutes.some((route) => url.startsWith(route))) {
     return
   }

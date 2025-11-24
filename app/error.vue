@@ -9,4 +9,7 @@
 </template>
 
 <script setup lang="ts">
+useHead({
+  title: 'Página não encontrada',
+})
 </script>

@@ -175,6 +175,10 @@ definePageMeta({
   middleware: 'auth',
 })
 
+useHead({
+  title: 'Plano de taxas',
+})
+
 const route = useRoute()
 const { get: getSalesPlan } = useSellerSalesPlanRequest()
 
